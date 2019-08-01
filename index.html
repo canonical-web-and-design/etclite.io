@@ -2,4 +2,42 @@
 layout: base
 ---
 
-<h1>etclite.io</h1>
+  <section class="p-strip--image is-dark is-deep" style="background-image: url('https://assets.ubuntu.com/v1/8bc629a7-microk8s-suru-background.svg'); background-size: cover;">
+    <div class="row u-equal-height">
+      <div class="col-7">
+        <h1>Embedded HA Key-Value Store</h1>
+        <p class="p-heading--four">Fast in-memory etcd-style embedded database with key-value semantics and RAFT consensus for high-availability IoT and edge devices.</p>
+      </div>
+      <div class="col-5">
+        <!-- Logo goes here -->
+      </div>
+    </div>
+  </section>
+  
+  <section class="p-strip is-bordered">
+    <div class="row">
+      <div class="col-7">
+        <p>Love etcd but hate operating etcd for your appliances and applications? Etclite provides a C API for etcd style key-value stores, with clustering for high availability and automatic persistence to long-term disk storage for recovery purposes.</p>
+        <p>Etclite is built on dqlite and C-RAFT, an optimised RAFT implementation in C wrapped around sqlite to gain high-performance transactional consensus while preserving sqlite’s famous efficiency and footprint. It adds a layer of key-value capability to emulate enough of the etcd concepts for most embedded applications.</p>
+        <ul class="p-inline-list">
+          <li class="p-inline-list__item"><a href=""><button class="p-button--positive">Get Started</button></a></li>
+          <li class="p-inline-list__item"><a href=""><button class="p-button--neutral">Download</button></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+<section class="p-strip--light is-bordered">
+  <div class="row">
+    <div class="col-7">
+      <ul class="p-list">
+        <li class="p-list__item is-ticked">Comprehensive test suite for correctness</li>
+        <li class="p-list__item is-ticked">Benchmarked for memory footprint and network efficiency</li>
+        <li class="p-list__item is-ticked">Persistent storage to disk for transaction logs</li>
+        <li class="p-list__item is-ticked">Fast recovery for system restore</li>
+        <li class="p-list__item is-ticked">C, C++, Golang bindings</li>
+        <li class="p-list__item is-ticked">ARM, X86, POWER, Z</li>
+      </ul>
+    </div>
+  </div>
+</section>
