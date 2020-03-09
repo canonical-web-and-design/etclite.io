@@ -42,7 +42,20 @@ jobs:
       - run:
           name: Lint sass
           command: yarn lint-scss
-
+  test-image:
+    docker:
+      - image: docker:18.09
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.09.3
+          docker_layer_caching: true
+      - run:
+          command: |
+            docker --version
+      - run:
+          name: Run production image
+          command: DOCKER_BUILDKIT=1 docker build --tag test-image . && docker run -t -p 80:80 test-image
 workflows:
   version: 2
   build:
