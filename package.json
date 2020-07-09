@@ -1,29 +1,31 @@
 {
   "scripts": {
-    "start": "yarn run build && yarn run serve",
+    "start": "yarn run build && concurrently --kill-others --raw 'yarn run watch-css' 'yarn run watch-js' 'yarn run serve'",
     "lint-nginx": "gixy nginx.conf",
-    "lint-scss": "stylelint _sass/**/*.scss",
-    "build": "yarn run build-css && yarn run build-js && yarn run build-jekyll",
-    "build-jekyll": "bundle exec jekyll build",
-    "build-css": "node-sass --include-path node_modules _sass --source-map true --output-style compressed --output css && postcss --use autoprefixer --replace css/**/*.css --no-map",
-    "build-js": "mkdir -p js/build/global-nav && cp node_modules/@canonical/global-nav/dist/global-nav.js js/build/global-nav",
-    "watch": "watch -p '_sass/**/*.scss' -c 'yarn run build'",
-    "serve": "bundle exec jekyll serve -P ${PORT} -H 0.0.0.0",
+    "lint-scss": "stylelint src/_sass/**/*.scss",
+    "build": "yarn run build-css && yarn run build-js && yarn run build-site",
+    "build-site": "eleventy --formats=html,css,js --input=src --output=_site",
+    "build-css": "node-sass --include-path node_modules src/_sass --source-map true --output-style compressed --output src/css && postcss --use autoprefixer --replace 'src/css/**/*.css'",
+    "build-js": "mkdir -p src/js/build && cp node_modules/@canonical/global-nav/dist/global-nav.js src/js/build",
+    "watch-css": "watch -p 'src/sass/**/*.scss' -c 'yarn run build-css'",
+    "watch-js": "watch -p 'node_modules/@canonical/global-nav/dist/global-nav.js' -c 'yarn run build-js'",
+    "serve": "eleventy --formats=html,scss,css,js --input=src --output=_site --watch --serve --port $PORT",
     "test": "yarn run lint-scss",
-    "clean": "rm -rf node_modules yarn-error.log css js *.log *.sqlite _site/ build/ .jekyll-metadata .bundle"
+    "clean": "rm -rf node_modules yarn-error.log css js *.log _site/"
   },
   "dependencies": {
     "@canonical/global-nav": "2.4.1",
-    "autoprefixer": "9.8.4",
-    "global-nav": "2.0.2",
-    "node-sass": "4.14.1",
-    "postcss-cli": "7.1.1",
-    "vanilla-framework": "2.13.0",
-    "watch-cli": "0.2.3"
+    "vanilla-framework": "2.13.0"
   },
   "devDependencies": {
+    "@11ty/eleventy": "0.10.0",
+    "autoprefixer": "9.8.4",
+    "concurrently": "5.2.0",
+    "node-sass": "4.14.1",
+    "postcss-cli": "7.1.1",
     "stylelint": "13.6.1",
     "stylelint-config-standard": "20.0.0",
-    "stylelint-order": "4.1.0"
+    "stylelint-order": "4.1.0",
+    "watch-cli": "0.2.3"
   }
 }
