@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "start": "yarn run build && concurrently --raw 'yarn run watch-css' 'yarn run watch-js' 'yarn run serve'",
+    "start": "yarn run build && concurrently --kill-others --raw 'yarn run watch-css' 'yarn run watch-js' 'yarn run serve'",
     "lint-nginx": "gixy nginx.conf",
-    "lint-scss": "stylelint _sass/**/*.scss",
+    "lint-scss": "stylelint src/_sass/**/*.scss",
     "build": "yarn run build-css && yarn run build-js && yarn run build-site",
     "build-site": "eleventy --formats=html,css,js --input=src --output=_site",
     "build-css": "node-sass --include-path node_modules src/_sass --source-map true --output-style compressed --output src/css && postcss --use autoprefixer --replace 'src/css/**/*.css'",
@@ -11,7 +11,7 @@
     "watch-js": "watch -p 'node_modules/@canonical/global-nav/dist/global-nav.js' -c 'yarn run build-js'",
     "serve": "eleventy --formats=html,scss,css,js --input=src --output=_site --watch --serve --port $PORT",
     "test": "yarn run lint-scss",
-    "clean": "rm -rf node_modules yarn-error.log css js *.log *.sqlite _site/ build/"
+    "clean": "rm -rf node_modules yarn-error.log css js *.log _site/"
   },
   "dependencies": {
     "@canonical/global-nav": "2.4.1",
